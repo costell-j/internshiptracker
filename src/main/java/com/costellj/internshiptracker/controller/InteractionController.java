@@ -27,11 +27,12 @@ public class InteractionController {
     private final InteractionService interactionService;
 
     @PostMapping
-    public ResponseEntity<Interaction> create(
+    public ResponseEntity<Void> create(
             @PathVariable Long applicationId,
             @RequestBody InteractionRequest request,
             @AuthenticationPrincipal User currentUser) {
-        return ResponseEntity.ok(interactionService.create(applicationId, request, currentUser));
+        interactionService.create(applicationId, request, currentUser);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping
