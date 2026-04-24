@@ -39,7 +39,7 @@ public class Interaction {
     @Column(nullable = false)
     private LocalDateTime occuredAt;
 
-    @JsonIgnore
+    @JsonIgnore 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "application_id", nullable = false)
     private Application application;
