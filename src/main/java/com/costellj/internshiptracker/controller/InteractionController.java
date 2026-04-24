@@ -31,8 +31,13 @@ public class InteractionController {
             @PathVariable Long applicationId,
             @RequestBody InteractionRequest request,
             @AuthenticationPrincipal User currentUser) {
-        interactionService.create(applicationId, request, currentUser);
-        return ResponseEntity.ok().build();
+        try {
+            interactionService.create(applicationId, request, currentUser);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @GetMapping
