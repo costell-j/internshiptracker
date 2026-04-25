@@ -36,7 +36,7 @@ public class Interaction {
     @Column(length = 2000)
     private String notes;
 
-    @Column(name = "occured_at", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime occurredAt;
 
     @JsonIgnore 
