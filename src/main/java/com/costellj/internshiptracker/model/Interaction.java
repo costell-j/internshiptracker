@@ -37,7 +37,7 @@ public class Interaction {
     private String notes;
 
     @Column(nullable = false)
-    private LocalDateTime occurredAt;
+    private LocalDateTime occurredAt; 
 
     @JsonIgnore 
     @ManyToOne(fetch = FetchType.LAZY)
