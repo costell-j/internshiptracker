@@ -45,7 +45,7 @@ public class InteractionService {
             throw new RuntimeException("Forbidden");
         }
         
-        return interactionRepository.findByApplicationIdOrderByOccuredAtDesc(applicationId);
+        return interactionRepository.findByApplicationIdOrderByOccurredAtDesc(applicationId);
     }
 
     public void delete(Long interactionId, User currentUser) {
