@@ -31,7 +31,7 @@ public class InteractionService {
         Interaction interaction = new Interaction();
         interaction.setType(request.getType());
         interaction.setNotes(request.getNotes());
-        interaction.setOccuredAt(request.getOccuredAt());
+        interaction.setOccurredAt(request.getOccurredAt());
         interaction.setApplication(application);
 
         return interactionRepository.save(interaction);
