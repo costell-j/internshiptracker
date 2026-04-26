@@ -16,6 +16,7 @@ public class GlobalExceptionHandler {
         HttpStatus status = switch (message) {
             case "Application not found", "User not found", "Company not found", "Interaction not found" -> HttpStatus.NOT_FOUND;
             case "Forbidden" -> HttpStatus.FORBIDDEN;
+            case "Application limit reached" -> HttpStatus.TOO_MANY_REQUESTS;
             default -> HttpStatus.INTERNAL_SERVER_ERROR;
         };
         return ResponseEntity.status(status).body(Map.of("error", message));

@@ -9,6 +9,7 @@ import com.costellj.internshiptracker.model.Application;
 import com.costellj.internshiptracker.model.ApplicationStatus;
 import com.costellj.internshiptracker.model.Company;
 import com.costellj.internshiptracker.model.User;
+import com.costellj.internshiptracker.model.Tier;
 import com.costellj.internshiptracker.repository.ApplicationRepository;
 import com.costellj.internshiptracker.repository.UserRepository;
 
@@ -23,11 +24,18 @@ public class ApplicationService {
     private final CompanyService companyService; 
 
     public Application create(ApplicationRequest request, String email) {
-        User user = (User) userRepository.findByEmail(email)
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Invalid credentials"));
-
+    
+        if (user.getTier() == Tier.FREE) {
+            long count = applicationRepository.countByUserId(user.getId());
+            if (count >= 30) {
+                throw new RuntimeException("Application limit reached");
+            }
+        }
+    
         Company company = companyService.findOrCreate(request.getCompany());
-
+    
         Application app = new Application();
         app.setCompany(company);
         app.setRole(request.getRole());
@@ -36,7 +44,7 @@ public class ApplicationService {
         app.setAppliedDate(request.getAppliedDate());
         app.setNotes(request.getNotes());
         app.setUser(user);
-
+    
         return applicationRepository.save(app);
     }
 
