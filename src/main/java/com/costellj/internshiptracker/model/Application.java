@@ -20,8 +20,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "applications")
-@Column
-private String period;
 
 @Getter
 @Setter
@@ -40,6 +38,9 @@ public class Application {
     private ApplicationStatus status;
 
     private String location;
+
+    @Column
+    private String period;
 
     @Column(name = "applied_date")
     private LocalDate appliedDate;
