@@ -15,4 +15,6 @@ public class ApplicationRequest {
     private String location;
     private LocalDate appliedDate;
     private String notes;
+    private String period;
+
 }

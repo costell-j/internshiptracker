@@ -44,9 +44,10 @@ public class ApplicationController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "appliedDate") String sortBy,
+            @RequestParam(required = false) String period,
             @AuthenticationPrincipal UserDetails userDetails) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy).descending());
-        return applicationService.getAll(userDetails.getUsername(), pageable);
+        return applicationService.getAll(userDetails.getUsername(), period, pageable);
     }
 
     @GetMapping("/{id}")

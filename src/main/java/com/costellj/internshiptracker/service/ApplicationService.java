@@ -49,13 +49,19 @@ public class ApplicationService {
         app.setAppliedDate(request.getAppliedDate());
         app.setNotes(request.getNotes());
         app.setUser(user);
+        app.setPeriod(request.getPeriod());
     
         return applicationRepository.save(app);
     }
 
-    public Page<Application> getAll(String email, Pageable pageable) {
+    public Page<Application> getAll(String email, String period, Pageable pageable) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if(period != null && !period.isEmpty()) {
+            return applicationRepository.findByUserIdAndPeriod(user.getId(), period, pageable);
+        }
+
         return applicationRepository.findByUserId(user.getId(), pageable);
     }
 

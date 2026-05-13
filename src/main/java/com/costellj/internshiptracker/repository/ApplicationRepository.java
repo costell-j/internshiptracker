@@ -10,6 +10,7 @@ import com.costellj.internshiptracker.model.ApplicationStatus;
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
 
     Page<Application> findByUserId(Long userId, Pageable pageable);
+    Page<Application> findByUserIdAndPeriod(Long userId, String period, Pageable pageable);
 
     long countByUserId(Long userId);
 

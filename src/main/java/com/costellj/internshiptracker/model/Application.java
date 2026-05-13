@@ -20,6 +20,9 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "applications")
+@Column
+private String period;
+
 @Getter
 @Setter
 public class Application {
