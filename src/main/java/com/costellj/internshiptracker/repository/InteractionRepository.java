@@ -9,4 +9,7 @@ import com.costellj.internshiptracker.model.Interaction;
 
 public interface InteractionRepository extends JpaRepository<Interaction, Long> {
     List<Interaction> findByApplicationIdOrderByOccurredAtDesc(Long applicationId);
+
+    void deleteByApplicationId(Long applicationId);
+
 }

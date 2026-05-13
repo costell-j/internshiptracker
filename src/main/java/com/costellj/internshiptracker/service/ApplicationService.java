@@ -12,6 +12,7 @@ import com.costellj.internshiptracker.model.User;
 import com.costellj.internshiptracker.model.Tier;
 import com.costellj.internshiptracker.repository.ApplicationRepository;
 import com.costellj.internshiptracker.repository.UserRepository;
+import com.costellj.internshiptracker.repository.InteractionRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +23,7 @@ public class ApplicationService {
     private final ApplicationRepository applicationRepository;
     private final UserRepository userRepository;
     private final CompanyService companyService; 
+    private final InteractionRepository interactionRepository;
 
     public Application create(ApplicationRequest request, String email) {
         User user = userRepository.findByEmail(email)
@@ -80,11 +82,14 @@ public class ApplicationService {
     public void delete(Long id, String email) {
         Application app = applicationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Application not found"));
-
+    
         if (!app.getUser().getEmail().equals(email)) {
             throw new RuntimeException("Forbidden");
         }
-
+    
+        interactionRepository.deleteByApplicationId(id);
+    
         applicationRepository.deleteById(id);
     }
+    
 }
