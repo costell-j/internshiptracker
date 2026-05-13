@@ -12,6 +12,9 @@ import com.costellj.internshiptracker.model.User;
 import com.costellj.internshiptracker.model.Tier;
 import com.costellj.internshiptracker.repository.ApplicationRepository;
 import com.costellj.internshiptracker.repository.UserRepository;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import com.costellj.internshiptracker.repository.InteractionRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -79,6 +82,7 @@ public class ApplicationService {
         return applicationRepository.save(app);
     }
 
+    @Transactional
     public void delete(Long id, String email) {
         Application app = applicationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Application not found"));
